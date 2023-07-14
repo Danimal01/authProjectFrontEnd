@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit { // Implement OnInit interfac
         // The object that we will send to the backend
         const userData = {
           email: this.userEmail,
-          ethereumAddress: this.address
+          ethereum_address: this.address
         };
 
         // Send a POST request to the backend with the user's email and Ethereum address
