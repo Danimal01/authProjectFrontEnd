@@ -1,1 +1,9 @@
-<h1>Welcome {{userEmail}}</h1>
+<h1>Welcome {{userEmail}}!</h1>
+<button (click)="logout()">Logout</button>
+
+<!-- Add Connect Metamask Button -->
+<button (click)="connectMetamask()">Connect Metamask</button>
+
+<!-- Display Wallet Address and Balance -->
+<p *ngIf="address">Wallet Address: {{address}}</p>
+<p *ngIf="balance">Balance: {{balance}}</p>
