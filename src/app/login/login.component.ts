@@ -47,7 +47,8 @@ export class LoginComponent {
       // Send a request to the backend to create a challenge for this account
       this.http.post('http://localhost:8080/api/challenge', { ethereum_address: account }).subscribe({
         next: async (response: any) => {
-          const nonceString = response.nonce.toString();
+          const nonceString = BigInt(response.nonce).toString();
+
           console.log(`Received nonce: ${nonceString}`);  // Add this log statement here
 
           const message = `\x19Ethereum Signed Message:\n${nonceString.length}${nonceString}`;
