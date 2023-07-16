@@ -74,6 +74,8 @@ export class LoginComponent {
               console.log('Logged in:', response);
 
               localStorage.setItem('token', response.token);
+              localStorage.setItem('email', response.email); // Save the email to localStorage
+
               // Assuming you are using Angular routing and you have a route for '/dashboard'
               this.router.navigate(['/dashboard']);
 
