@@ -21,15 +21,15 @@ export class RegisterComponent {
     ) { }
 
     registerUser() {
-      this.userService.registerUser(this.email, this.password).subscribe(
+      this.userService.registerUser(this.email).subscribe(
         (response) => {
           this.router.navigate(['login']); // Navigate to login
         },
         (error) => {
-          // Handle error
           console.log('registerUser user')
         }
       );
     }
+
 
 }

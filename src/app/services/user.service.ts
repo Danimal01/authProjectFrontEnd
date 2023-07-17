@@ -11,8 +11,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(email: string, password: string): Observable<any> {
-    return this.http.post('http://localhost:8080/api/register', { email, password });
+  registerUser(email: string): Observable<any> {
+    return this.http.post('http://localhost:8080/api/register', {email});
   }
 
   loginUser(email: string, password: string): Observable<any> {
@@ -22,5 +22,16 @@ export class UserService {
       })
     );
 }
+
+  // user.service.ts
+  loginRequest(email: string) {
+    return this.http.post('http://localhost:8080/api/login-request', { email });
+  }
+
+  verifyToken(token: string) {
+    return this.http.get(`http://localhost:8080/api/login/${token}`);
+  }
+
+
 
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
 declare let window: any;
 import Web3 from 'web3';
 
@@ -20,20 +20,39 @@ export class LoginComponent {
   constructor(
     private http: HttpClient,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
+
     ) { }
 
-  loginUser() {
-    this.userService.loginUser(this.email, this.password).subscribe(
-      (response) => {
-        localStorage.setItem('token', response.token); // Save token in local storage
-        this.router.navigate(['dashboard']); // Navigate to dashboard
-      },
-      (error) => {
-        console.log('loginUser user')
+    ngOnInit() {
+      const token = this.route.snapshot.paramMap.get('token');
+
+      if (token) {
+        this.userService.verifyToken(token).subscribe(
+          (response: any) => {
+            localStorage.setItem('token', response.token); // Save token in local storage
+            localStorage.setItem('email', response.email); // Save the email to localStorage
+            this.router.navigate(['dashboard']); // Navigate to dashboard
+          },
+          (error) => {
+            console.log('verifyToken error', error)
+          }
+        );
       }
-    );
-  }
+    }
+
+    loginUser() {
+      this.userService.loginRequest(this.email).subscribe(
+        (response) => {
+          alert('Check your email for the magic link!');
+        },
+        (error) => {
+          console.log('loginUser user')
+        }
+      );
+    }
+
 
   async loginWithMetamask() {
     try {
